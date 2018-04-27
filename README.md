@@ -22,8 +22,9 @@ _This file is intended to help you remember the thing you made way back then..._
 
 ## Pull from Digital Ocean
 
-1. `ssh root@45.55.44.195`
-2. `cd /home/forge/leviolson-website`
-3. `git pull && npm i`
-4. `pm2 restart LeviOlson.com`
+1. SSH into server `ssh root@45.55.44.195`
+2. Enter correct dir `cd /home/forge/leviolson-website`
+3. Pull in changes `git pull && npm i`
+4. Restart the service `pm2 restart LeviOlson.com`
+5. Verify it restarted correctly `pm2 logs LeviOlson.com`
 
