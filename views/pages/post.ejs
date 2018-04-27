@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+
+<body class="home type-page">
+    <div class="container">
+
+        <% include ../partials/header %>
+
+        <main class="main" id="main">
+            <article class="entry">
+                <header class="header-container">
+                    <div class="header entry-header">
+                        <div class="header-info">
+                            <h1 class="title">
+                                <a href="<%= permalink %>"><%= post_title %></a>
+                            </h1>
+                        </div>
+                        <div class="meta">
+                            <span class="posted-on">
+                                <time class="date" datetime="<%= created_at %>"><%= created_at_short %></time>
+                            </span>
+                        </div>
+                    </div>
+                </header>
+                <div class="entry-content" style="padding-top: 50px;">
+
+                    <%- content %>
+
+                </div>
+                <footer class="entry-footer-container" style="padding-top:100px;">
+                    <div class="entry-footer">
+                        <p>- until next time.</p>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <% include ../partials/footer %>
+
+    </div>
+</body>
+
+</html>

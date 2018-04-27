@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="home type-page">
+    <div class="container">
+
+        <% include ../partials/header %>
+
+        <main id='main' class='main'>
+            <header class='header-container'>
+                <div class='header list-header'>
+                    <div class='header-info'>
+                        <h1 class='title'>Posts</h1>
+                    </div>
+                </div>
+            </header>
+
+            <div class='list-container'>
+                <ul class='list'>
+                    <% posts.forEach(function(post) { %>
+                    <li class='list-item'>
+                        <article>
+                            <div class='meta'>
+                                <span>
+                                    <time datetime='<%= post.created_at %>'><%= post.created_at_short %></time>
+                                </span>
+                            </div>
+                            <header class='list-item-header'>
+                                <h3 class='list-item-title'>
+                                    <a href='<%= post.permalink %>'><%= post.title %></a>
+                                </h3>
+                            </header>
+                        </article>
+                    </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </main>
+
+        <footer id='footer' class='footer-container'>
+            <div class='footer'>
+                <div class='copyright'>
+                    <p>
+                        <a href='/uncopyright'>uncopyright</a>
+                    </p>
+                </div>
+
+            </div>
+        </footer>
+    </div>
+    </div>
+</body>
+
+</html>

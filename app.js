@@ -1,0 +1,77 @@
+'use strict'
+
+const express = require('express')
+const fs = require('fs')
+const path = require('path')
+const app = express()
+
+app.set('view engine', 'ejs')
+
+app.get('/', (req, res) => {
+    res.render('pages/index', {
+        title: "Levi Olson",
+        active: "home",
+        content: ""
+    })
+})
+
+app.get('/posts', (req, res) => {
+    const postDir = __dirname + '/posts'
+    let files = fs.readdirSync(postDir, 'utf8')
+    let data = {
+        title: "Posts - Levi Olson",
+        active: "posts",
+        posts: []
+    }
+    for (let i = 0; i < files.length; i++) {
+        if (path.extname(files[i]) === '.json') {
+            data.posts.push(getData(files[i]))
+        }
+    }
+
+    res.render('pages/posts', data)
+})
+
+function getData(file) {
+    let postData
+    try {
+        postData = JSON.parse(fs.readFileSync('./posts/' + file, 'utf8'))
+        postData.content = fs.readFileSync('./posts/' + postData.content_file, 'utf8')
+    } catch (e) {
+        return
+    }
+    return postData
+}
+
+app.get('/about', (req, res) => {
+    res.sendFile(__dirname + '/views/pages/about.html')
+})
+
+app.get('/uncopyright', (req, res) => {
+    return res.sendFile(__dirname + '/views/pages/uncopyright.html')
+})
+
+app.get('/404', (req, res) => {
+    return res.status(404).render('pages/404', {
+        title: "Page Not Found - Levi Olson",
+        active: ""
+    })
+})
+
+app.get('/core.css', (req, res) => {
+    res.sendFile(__dirname + '/core.css')
+})
+
+app.get('/posts/:post', (req, res) => {
+    let post = req.params.post
+    let postData
+    try {
+        postData = JSON.parse(fs.readFileSync('./posts/' + post + '.json', 'utf8'))
+        postData.content = fs.readFileSync('./posts/' + postData.content_file, 'utf8')
+    } catch (e) {
+        return res.redirect('/404')
+    }
+    return res.render('pages/post', postData)
+})
+
+app.listen(3000, () => console.log('Example app listening on port 3000!'))
