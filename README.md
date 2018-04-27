@@ -18,4 +18,12 @@ _This file is intended to help you remember the thing you made way back then..._
             "categories" : ["misc", "programming", "js", "etc..."]
         }
 
-3. That's it.
+3. Commit, Push and Pull.
+
+## Pull from Digital Ocean
+
+1. `ssh root@45.55.44.195`
+2. `cd /home/forge/leviolson-website`
+3. `git pull && npm i`
+4. `pm2 restart LeviOlson.com`
+
