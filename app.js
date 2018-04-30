@@ -79,7 +79,7 @@ app.get('/posts/:post', (req, res) => {
     return res.render('pages/post', postData)
 })
 
-const port = 5000
+const port = 3000
 app.listen(port, () => console.log('Example app listening on port ' + port + '!'))
 
 module.exports = app
