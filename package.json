@@ -15,7 +15,7 @@
   "scripts": {
     "start": "node app.js",
     "startdev": "./node_modules/.bin/nodemon app.js",
-    "test": "mocha --timeout 10000 --colors --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --timeout 10000 --colors --exit",
     "coverage": "nyc --reporter=html --reporter=text mocha --timeout 10000 --exit"
   },
   "author": "Levi Olson <me@leviolson.com>",
