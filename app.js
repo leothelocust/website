@@ -25,7 +25,12 @@ app.get('/posts', (req, res) => {
     }
     for (let i = 0; i < files.length; i++) {
         if (path.extname(files[i]) === '.json') {
-            data.posts.push(getData(files[i]))
+            let postData = getData(files[i])
+            if (postData) {
+                data.posts.push(postData)
+            } else {
+                console.log(files[i], 'does not have a corresponding "html" file')
+            }
         }
     }
 
@@ -74,4 +79,7 @@ app.get('/posts/:post', (req, res) => {
     return res.render('pages/post', postData)
 })
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+const port = 5000
+app.listen(port, () => console.log('Example app listening on port ' + port + '!'))
+
+module.exports = app

@@ -1,18 +1,23 @@
 {
-  "name": "levi",
+  "name": "website",
   "version": "1.0.0",
-  "description": "",
+  "description": "Levi's Website",
   "main": "app.js",
   "dependencies": {
     "ejs": "^2.5.9",
-    "express": "^4.16.3",
-    "nodemon": "^1.17.3"
+    "express": "^4.16.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "nodemon": "^1.17.3",
+    "supertest": "^3.0.0"
+  },
   "scripts": {
-    "start": "./node_modules/.bin/nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "startdev": "./node_modules/.bin/nodemon app.js",
+    "test": "mocha --timeout 10000 --colors --exit",
+    "coverage": "nyc --reporter=html --reporter=text mocha --timeout 10000 --colors --exit"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Levi Olson <me@leviolson.com>",
+  "license": "UNLICENSE"
 }
