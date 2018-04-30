@@ -7,12 +7,6 @@ cache:
   paths:
   - node_modules/
 
-test_async:
-  script:
-   - npm install
-   - npm install --global mocha
-   - npm run test
-
 test_coverage:
   script:
     - npm install
