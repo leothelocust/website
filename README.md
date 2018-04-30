@@ -1,4 +1,7 @@
-[![pipeline status](https://gitlab.com/olson.levi/website/badges/master/pipeline.svg)](https://gitlab.com/olson.levi/website/commits/master) [![coverage report](https://gitlab.com/olson.levi/website/badges/master/coverage.svg)](https://gitlab.com/olson.levi/website/commits/master) [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-brightgreen.svg)](http://unlicense.org/)
+[![pipeline status](https://gitlab.com/olson.levi/website/badges/master/pipeline.svg)](https://gitlab.com/olson.levi/website/commits/master)
+[![coverage report](https://gitlab.com/olson.levi/website/badges/master/coverage.svg)](https://gitlab.com/olson.levi/website/commits/master)
+[![License: Unlicense](https://img.shields.io/badge/license-unlicense-brightgreen.svg)](http://unlicense.org/)
+[![status stable](https://img.shields.io/badge/status-stable-brightgreen.svg)](https://leviolson.com/)
 
 # How does this work
 
