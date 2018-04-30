@@ -1,5 +1,4 @@
-[![pipeline status](https://gitlab.com/olson.levi/website/badges/master/pipeline.svg)](https://gitlab.com/olson.levi/website/commits/master)
-[![coverage report](https://gitlab.com/olson.levi/website/badges/master/coverage.svg)](https://gitlab.com/olson.levi/website/commits/master)
+[![pipeline status](https://gitlab.com/olson.levi/website/badges/master/pipeline.svg)](https://gitlab.com/olson.levi/website/commits/master) [![coverage report](https://gitlab.com/olson.levi/website/badges/master/coverage.svg)](https://gitlab.com/olson.levi/website/commits/master)
 
 # How does this work
 
