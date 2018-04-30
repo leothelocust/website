@@ -7,8 +7,23 @@ cache:
   paths:
   - node_modules/
 
+stages:
+  - test
+  - deploy
+
 test_coverage:
+  stage: test
   script:
     - npm install
     - npm install --global mocha nyc
     - npm run coverage
+
+deploy_prod:
+  stage: deploy
+  script:
+    - echo "Deploying to Production"
+  environment:
+    name: production
+    url: https://leviolson.com
+  only:
+    - master
