@@ -7,16 +7,22 @@ cache:
   paths:
   - node_modules/
 
+  stages:
+  - test
+  - deploy
+
 before_script:
   - apt-get update -qq && apt-get install -y -qq sshpass
 
 test_coverage:
+  stage: test
   script:
     - npm install
     - npm install --global mocha nyc
     - npm run coverage
 
 deploy_prod:
+  stage: deploy
   script:
     - echo "Deploying to Production"
     - npm install
