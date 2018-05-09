@@ -12,6 +12,8 @@ I assume you have basic knowledge of the Go language at this point, so if not, i
 
 ## Let's begin
 
+The accompanying repo for the code produced in this article is located [on github](https://github.com/leothelocust/basic-http-routing-in-golang).
+
 ### Step 1
 
 Here is our basic folder structure for this basic http routing example:
@@ -155,4 +157,4 @@ Now we can use this method in our code:
 
 ## Conclusion
 
-For now, I'm calling this "Basic HTTP Routing in Golang" article finished.  But I do plan to add more as time allows.  Additionally, I'd like to create a more advanced article that discusses the ability to respond to POST, PUT, and DELETE requests.  Look for an "Advanced HTTP routing in Golang" article in the future.  Thanks for reading this far.  I wish you well in your Go endevors.
+For now, I'm calling this "Basic HTTP Routing in Golang" article finished.  But I do plan to add more as time allows.  Additionally, I'd like to create a more advanced article that discusses the ability to respond to POST, PUT, and DELETE requests.  Look for an "Advanced HTTP routing in Golang" article in the future.  Thanks for reading this far.  I wish you well in your Go endeavors.
