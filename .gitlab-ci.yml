@@ -11,9 +11,6 @@ stages:
   - test
   - deploy
 
-before_script:
-  - apt-get update -qq && apt-get install -y -qq sshpass
-
 test_coverage:
   stage: test
   script:
@@ -25,6 +22,7 @@ deploy_prod:
   stage: deploy
   script:
     - echo "Deploying to Production"
+    - apt-get update -qq && apt-get install -y -qq sshpass
     - npm install
     - sshpass -V
     - export SSHPASS=$SSH_PASS
