@@ -12,6 +12,8 @@ I assume you have basic knowledge of the Go language at this point, so if not, i
 
 ## Let's begin
 
+### Step 1
+
 Here is our basic folder structure for this basic http routing example:
 
         basic-http-routing-in-golang/
@@ -28,5 +30,42 @@ As a starting point our `main.go` file looks like this:
 
         func main() {
             fmt.Println("Hello HTTP")
+        }
+
+### Step 2
+
+Now starting at a very basic level, we can leverage the [`http.HandleFunc`](https://golang.org/pkg/net/http/#HandleFunc) method.
+
+It is very simple to use and its signature is easy to understand.
+
+        func HandleFunc(pattern string, handler func(ResponseWriter, *Request))
+
+Which basically means, `http.HandleFunc("/url", routingFunction)` where `routingFunction` looks like this:
+
+        func routingFunction(w http.ResponseWriter, req *http.Request) {
+            fmt.Fprint(w, "Hello HTTP")
+        }
+
+With `fmt.Fprint()` we can pass an `http.ResponseWriter` and a message to display.  Our browser will now look like this when we visit the `/url` endpoint.
+
+![](step2-browser-output.png)
+
+Here is what `main.go` looks like at this point:
+
+        package main
+
+        import (
+            "fmt"
+            "log"
+            "net/http"
+        )
+
+        func main() {
+            http.HandleFunc("/hello", HelloHTTP)
+            log.Fatal(http.ListenAndServe(":8080", nil))
+        }
+
+        func HelloHTTP(w http.ResponseWriter, req *http.Request) {
+            fmt.Fprint(w, "Hello HTTP")
         }
 
