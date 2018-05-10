@@ -36,6 +36,14 @@ app.get('/posts', (req, res) => {
             }
         }
     }
+    data.posts.sort(function (a, b) {
+        var keyA = new Date(a.created_at),
+            keyB = new Date(b.created_at)
+        // Compare the 2 dates
+        if (keyA < keyB) return 1
+        if (keyA > keyB) return -1
+        return 0
+    })
 
     res.render('pages/posts', data)
 })
