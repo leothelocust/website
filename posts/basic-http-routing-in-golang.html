@@ -2,7 +2,7 @@
     use of external libraries for even the most basic tasks. For example, with JavaScript, most inexperienced developers
     seem to use jQuery to do simple tasks like selecting an element and replacing its contents. When you and I both know
     jQuery is way overkill for such a task.
-    <a href="/posts/coming-soon">See my article on Vanilla JS basics.</a>.</p>
+    <a href="/posts/coming-soon">See my article on Vanilla JS basics</a>.</p>
 <p>I believe that in order to be considered an expert in a language, you must at least be able to demonstrate using the core
     language to achieve your goal. In our current case, HTTP routing. Now to be clear, I don't think you need to write everything
     from scratch all the time, but you should have a firm grasp on what is available by the core language, and when you are
@@ -55,7 +55,7 @@
     <code>http.ResponseWriter</code> and a message to display. Our browser will now look like this when we visit the
     <code>/url</code> endpoint.</p>
 <p>
-    <img src="/images/step2-browser-output.png" alt="Browser Output for Step 2 - Hellp HTTP">
+    <img src="/images/step2-browser-output.png" alt="Browser Output for Step 2 - Hello HTTP">
 </p>
 <p>Here is what
     <code>main.go</code> looks like at this point:</p>
@@ -79,9 +79,13 @@
 <p>Now we could stop there, as this is a &quot;basic&quot; http routing example, but I think it isn't quite useful as an example
     yet, until we start to see something slightly more practical.</p>
 <h3 id="step-3">Step 3</h3>
-<p>For starters, let's add a
+<p>So let's add a
     <code>NotFound</code> page when we don't match a pattern in
-    <code>HandleFunc</code>.</p>
+    <code>HandleFunc</code>. It's as simple as:</p>
+<pre><code>    func notFound(w http.ResponseWriter, req *http.Request) {
+        http.NotFound(w, req)
+    }
+</code></pre>
 <p>Here is what
     <code>main.go</code> looks like after that:</p>
 <pre><code>    package main
@@ -108,13 +112,13 @@
 </code></pre>
 <p>This will match
     <code>/hello</code> and use the
-    <code>HelloHTTP</code> method to print &quot;Hello HTTP&quot; to the browser. Any other urls will get caught by the
+    <code>HelloHTTP</code> method to print &quot;Hello HTTP&quot; to the browser. Any other URLs will get caught by the
     <code>/</code> pattern and be given the
     <code>http.NotFound</code> response to the browser.</p>
 <p>So that works, but I think we can go further.</p>
 <h3 id="step-4">Step 4</h3>
 <p>We need to give ourselves something more specific than the simple contrived
-    <code>/hello</code> endpoint above. So let's assume we are needing to get a user profile and we will use the url
+    <code>/hello</code> endpoint above. So let's assume we are needing to get a user profile. We will use the url
     <code>/user/:id</code> where
     <code>:id</code> is an identifier used to get the user profile from our persistance layer (i.e. our database).</p>
 <p>We'll start by creating a new method for this GET request called
@@ -129,11 +133,11 @@
     <code>req.URL.Path</code> as a byte slice to get everything after the
     <code>/user/</code> in the string.
     <strong>Note: this isn't fool proof,
-        <code>/user/10/ok</code> would get matched here, and we would be assigning
+        <code>/user/10ok</code> would get matched here, and we would be assigning
         <code>userID</code> to
-        <code>&quot;10/ok&quot;</code>.</strong>
+        <code>&quot;10ok&quot;</code>.</strong>
 </p>
-<p>And we'll add the new route in our
+<p>Let's add this new route in our
     <code>main</code> function:</p>
 <pre><code>    func main() {
         http.HandleFunc(&quot;/hello&quot;, helloHTTP)
@@ -174,7 +178,7 @@
     }
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
-<p>For now, I'm calling this &quot;Basic HTTP Routing in Golang&quot; article finished. But I do plan to add more as time allows.
-    Additionally, I'd like to create a more advanced article that discusses the ability to respond to POST, PUT, and DELETE
-    requests. Look for an &quot;Advanced HTTP routing in Golang&quot; article in the future. Thanks for reading this far.
-    I wish you well in your Go endeavors.</p>
+<p>For now, I'm calling this &quot;Basic HTTP Routing in Golang&quot; article finished. But I do plan to add more to it as time
+    allows. Additionally, I'd like to create a more advanced article that discusses the ability to respond to not only GET
+    requests, but also POST, PUT, and DELETE HTTP methods. Look for an &quot;Advanced HTTP routing in Golang&quot; article
+    in the future. Thanks for reading this far. I wish you well in your Go endeavors.</p>

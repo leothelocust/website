@@ -1,4 +1,4 @@
-Golang is incredibly powerful.  Its standard library has so much to offer, but I think other languages have encouraged the use of external libraries for even the most basic tasks.  For example, with JavaScript, most inexperienced developers seem to use jQuery to do simple tasks like selecting an element and replacing its contents. When you and I both know jQuery is way overkill for such a task.  [See my article on Vanilla JS basics.](/posts/coming-soon).
+Golang is incredibly powerful.  Its standard library has so much to offer, but I think other languages have encouraged the use of external libraries for even the most basic tasks.  For example, with JavaScript, most inexperienced developers seem to use jQuery to do simple tasks like selecting an element and replacing its contents. When you and I both know jQuery is way overkill for such a task.  [See my article on Vanilla JS basics](/posts/coming-soon).
 
 I believe that in order to be considered an expert in a language, you must at least be able to demonstrate using the core language to achieve your goal.  In our current case, HTTP routing.  Now to be clear, I don't think you need to write everything from scratch all the time, but you should have a firm grasp on what is available by the core language, and when you are better suited to use an external library.  If you are looking for more advanced HTTP routing, then I would suggest using something like [gin](https://github.com/gin-gonic/gin).
 
@@ -48,7 +48,7 @@ Which basically means, `http.HandleFunc("/url", routingFunction)` where `routing
 
 With `fmt.Fprint()` we can pass an `http.ResponseWriter` and a message to display.  Our browser will now look like this when we visit the `/url` endpoint.
 
-![Browser Output for Step 2 - Hellp HTTP](images/step2-browser-output.png)
+![Browser Output for Step 2 - Hello HTTP](images/step2-browser-output.png)
 
 Here is what `main.go` looks like at this point:
 
@@ -73,7 +73,11 @@ Now we could stop there, as this is a "basic" http routing example, but I think 
 
 ### Step 3
 
-For starters, let's add a `NotFound` page when we don't match a pattern in `HandleFunc`.
+So let's add a `NotFound` page when we don't match a pattern in `HandleFunc`.  It's as simple as:
+
+        func notFound(w http.ResponseWriter, req *http.Request) {
+            http.NotFound(w, req)
+        }
 
 Here is what `main.go` looks like after that:
 
@@ -99,13 +103,13 @@ Here is what `main.go` looks like after that:
             http.NotFound(w, req)
         }
 
-This will match `/hello` and use the `HelloHTTP` method to print "Hello HTTP" to the browser.  Any other urls will get caught by the `/` pattern and be given the `http.NotFound` response to the browser.
+This will match `/hello` and use the `HelloHTTP` method to print "Hello HTTP" to the browser.  Any other URLs will get caught by the `/` pattern and be given the `http.NotFound` response to the browser.
 
 So that works, but I think we can go further.
 
 ### Step 4
 
-We need to give ourselves something more specific than the simple contrived `/hello` endpoint above.  So let's assume we are needing to get a user profile and we will use the url `/user/:id` where `:id` is an identifier used to get the user profile from our persistance layer (i.e. our database).
+We need to give ourselves something more specific than the simple contrived `/hello` endpoint above.  So let's assume we are needing to get a user profile.  We will use the url `/user/:id` where `:id` is an identifier used to get the user profile from our persistance layer (i.e. our database).
 
 We'll start by creating a new method for this GET request called `userProfile`:
 
@@ -114,9 +118,9 @@ We'll start by creating a new method for this GET request called `userProfile`:
             fmt.Fprintf(w, "User Profile: %q", userID)
         }
 
-Notice that we get the URL from the `req` variable and we treat the string returned from `req.URL.Path` as a byte slice to get everything after the `/user/` in the string.  **Note: this isn't fool proof, `/user/10/ok` would get matched here, and we would be assigning `userID` to `"10/ok"`.**
+Notice that we get the URL from the `req` variable and we treat the string returned from `req.URL.Path` as a byte slice to get everything after the `/user/` in the string.  **Note: this isn't fool proof, `/user/10ok` would get matched here, and we would be assigning `userID` to `"10ok"`.**
 
-And we'll add the new route in our `main` function:
+Let's add this new route in our `main` function:
 
         func main() {
             http.HandleFunc("/hello", helloHTTP)
@@ -126,7 +130,6 @@ And we'll add the new route in our `main` function:
         }
 
 _Note: that this pattern `/user/` matches the trailing `/` so that a call to `/user` in the browser would return a `404 Not Found`._
-
 
 ### Step 5
 
@@ -155,4 +158,4 @@ Now we can use this method in our code:
 
 ## Conclusion
 
-For now, I'm calling this "Basic HTTP Routing in Golang" article finished.  But I do plan to add more as time allows.  Additionally, I'd like to create a more advanced article that discusses the ability to respond to POST, PUT, and DELETE requests.  Look for an "Advanced HTTP routing in Golang" article in the future.  Thanks for reading this far.  I wish you well in your Go endeavors.
+For now, I'm calling this "Basic HTTP Routing in Golang" article finished.  But I do plan to add more to it as time allows.  Additionally, I'd like to create a more advanced article that discusses the ability to respond to not only GET requests, but also POST, PUT, and DELETE HTTP methods.  Look for an "Advanced HTTP routing in Golang" article in the future.  Thanks for reading this far.  I wish you well in your Go endeavors.
