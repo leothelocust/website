@@ -33,6 +33,10 @@ h6 {
   padding: 20px 0 20px 0
 }
 
+.entry-content h1 {
+  display: none;
+}
+
 blockquote {
   border-left: 5px solid #ddd;
   margin: 0;

@@ -1,0 +1,79 @@
+<h1 id="vanilla-js-basics">Vanilla JS Basics</h1>
+<p>
+    <em>Warning: This article turned out to be a bit of rant. So if you are the type to get offended when I say negative things
+        about JavaScript, you are welcome to leave.</em>
+</p>
+<p>JavaScript is what I consider to be an &quot;easy&quot; language. Now what do I mean by that? Well, its usually the first
+    <em>scripting</em> language that new developers learn, and you can get started with very little &quot;training&quot;. It
+    has a relatively simple syntax. It can be very powerful. So from my point of view, its an easy language to pick up. And
+    therein lies the problem.</p>
+<p>So many of the JavaScript programmers out there today hear the term &quot;JavaScript&quot; and think in there mind &quot;jQuery&quot;.
+    Now that's great to have that kind of brand recognition if you are jQuery, but if you are looking to be an efficient
+    programmer that doesn't put holes in everything you make, you may want to consider that JavaScript is NOT jQuery.</p>
+<p>Additionally, we need to start thinking about the consequences of using third-party libraries for everything. Longer load
+    times, additional security risks, more memory consumption, and the list goes on.</p>
+<p>I want to give you at least a few little snippets of vanilla JavaScript that will get you on your way to not importing jQuery
+    on every project as a
+    <em>step 1</em>. It should be near the end of your steps and only as needed.</p>
+<p>
+    <em>Disclaimer: Vanilla JavaScript will be longer (i.e. more verbose), but this isn't always a bad thing. Keep in mind that
+        we are eliminating the import of another package, and all the bloat that comes with it.</em>
+</p>
+<h2 id="assumptions">Assumptions</h2>
+<p>For starters, I'm assuming that you getting this far means that you at least have heard of JavaScript. If you have not heard
+    of jQuery,
+    <strong>leave now</strong>, I don't want &quot;introducing someone to jQuery&quot; to be what you get out of this.</p>
+<p>Let's begin...</p>
+<h3 id="selecting-element-in-the-dom">Selecting Element in the DOM</h3>
+<p>jQuery</p>
+<pre><code>    $('#myID')
+</code></pre>
+<p>Vanilla JavaScript</p>
+<pre><code>    document.getElementById('myID')
+</code></pre>
+<p>Again, note that vanilla JavaScript is longer, but its actually more descriptive of what is going on here. Unless you are
+    familiar with jQuery (yes, I know you are) the jQuery syntax doesn't tell you what its doing.</p>
+<h3 id="replace-text-html-in-the-dom">Replace Text/HTML in the DOM</h3>
+<p>jQuery</p>
+<pre><code>    $('#myID').html('here is the replacement')
+</code></pre>
+<p>Vanilla JavaScript</p>
+<pre><code>    document.getElementById('myID').innerHTML('here is the replacement')
+</code></pre>
+<p>Very similar eh. However, there is actually some performance gain by using vanilla JavaScript. See
+    <a href="https://stackoverflow.com/questions/3563107/jquery-html-vs-innerhtml#answer-3563136">here</a>.</p>
+<h3 id="click-handling-in-the-dom">Click Handling in the DOM</h3>
+<p>jQuery</p>
+<pre><code>    $('#myID').click(function() {
+        alert('Clicked it!')
+    })
+</code></pre>
+<p>Vanilla JavaScript</p>
+<pre><code>    document.getElementById('myID').addEventListener('click', function(e) {
+        alert('Clicked it!')
+    })
+</code></pre>
+<p>So easy.</p>
+<h3 id="advanced-queries-and-iteration">Advanced Queries and Iteration</h3>
+<p>jQuery</p>
+<pre><code>    $('.item').hide()
+</code></pre>
+<p>Vanilla JavaScript</p>
+<pre><code>    var items = document.getElementsByClassName('.items')
+    for (var i = 0; i &lt; items.length; i++) {
+        item[i].style.display = 'none'
+    }
+</code></pre>
+<p>We're starting to see the verbosity I mentioned above, but again, remember that we aren't loading in a massive third-party
+    library!</p>
+<h3 id="even-more-advanced">Even More Advanced</h3>
+<p>See Patrick Kunka's article
+    <a href="https://blog.wearecolony.com/a-year-without-jquery/">A Year Without jQuery</a>
+</p>
+<p>Patrick and I agree on many of the same points and his article articulates some helper functions that can be used to perform
+    more advanced loops, child selection and child indexing. I highly recommend you read through his article.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>If you find that your requirements heavily rely on JavaScript for DOM manipulation, or that you need animations such as the
+    ones provided by jQuery, then don't let me stop you. But if you only need some of what was covered above, or you want
+    to put a priority on performance, then you should really consider going with plain vanilla JavaScript and leave the dependencies
+    behind. You won't regret it.</p>
