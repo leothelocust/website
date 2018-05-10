@@ -1,5 +1,4 @@
 [![pipeline status](https://gitlab.com/olson.levi/website/badges/master/pipeline.svg)](https://gitlab.com/olson.levi/website/commits/master)
-[![Build Status](https://travis-ci.org/leothelocust/website.svg?branch=master)](https://travis-ci.org/leothelocust/website)
 [![coverage report](https://gitlab.com/olson.levi/website/badges/master/coverage.svg)](https://gitlab.com/olson.levi/website/commits/master)
 [![License: Unlicense](https://img.shields.io/badge/license-unlicense-brightgreen.svg)](http://unlicense.org/)
 [![status stable](https://img.shields.io/badge/status-stable-brightgreen.svg)](https://leviolson.com/)
