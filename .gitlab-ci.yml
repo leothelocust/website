@@ -7,6 +7,14 @@ cache:
   paths:
   - node_modules/
 
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIV_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
 stages:
   - test
   - deploy
@@ -22,13 +30,8 @@ deploy_prod:
   stage: deploy
   script:
     - echo "Deploying to Production"
-    - apt-get update -qq && apt-get install -y -qq sshpass
     - npm install
-    - sshpass -V
-    - export SSHPASS=$SSH_PASS
-    - mkdir ~/.ssh
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - sshpass -e ssh root@45.55.44.195 "cd /home/forge/leviolson-website && git pull && bash -c \"pm2 stop LeviOlson.com && pm2 delete LeviOlson.com && pm2 start app.js --name LeviOlson.com && pm2 logs --nostream --lines 2 LeviOlson.com && exit 0\" && exit 0"
+    - ssh root@206.189.236.142 "cd /opt/apps/leviolson.com && git pull && npm install && bash -c \"pm2 stop LeviOlson.com && pm2 delete LeviOlson.com && pm2 start app.js --name LeviOlson.com && pm2 logs --nostream --lines 2 LeviOlson.com && exit 0\" && exit 0"
   environment:
     name: production
     url: https://leviolson.com
