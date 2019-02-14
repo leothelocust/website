@@ -8,6 +8,11 @@ const app = express()
 
 app.use(express.static('public'))
 
+const env = process.env.NODE_ENV
+if (env === 'dev') {
+    app.use('/coverage', express.static('coverage'))
+}
+
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {

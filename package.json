@@ -1,23 +1,25 @@
 {
-  "name": "website",
-  "version": "1.0.0",
-  "description": "Levi's Website",
-  "main": "app.js",
-  "dependencies": {
-    "ejs": "^2.5.9",
-    "express": "^4.16.3"
-  },
-  "devDependencies": {
-    "chai": "^4.1.2",
-    "nodemon": "^1.18.10",
-    "supertest": "^3.0.0"
-  },
-  "scripts": {
-    "start": "node app.js",
-    "startdev": "./node_modules/.bin/nodemon app.js",
-    "test": "nyc --reporter=html --reporter=text mocha --timeout 10000 --colors --exit",
-    "coverage": "nyc --reporter=html --reporter=text mocha --timeout 10000 --exit"
-  },
-  "author": "Levi Olson <me@leviolson.com>",
-  "license": "UNLICENSE"
+    "name": "website",
+    "version": "1.0.0",
+    "description": "Levi's Website",
+    "main": "app.js",
+    "dependencies": {
+        "ejs": "^2.5.9",
+        "express": "^4.16.3"
+    },
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "markdown": "^0.5.0",
+        "nodemon": "^1.18.10",
+        "supertest": "^3.0.0"
+    },
+    "scripts": {
+        "start": "node app.js",
+        "startdev": "NODE_ENV=dev ./node_modules/.bin/nodemon app.js",
+        "test": "nyc --reporter=html --reporter=text mocha --timeout 10000 --colors --exit",
+        "coverage": "nyc --reporter=html --reporter=text mocha --timeout 10000 --exit",
+        "export": ".bin/export.sh"
+    },
+    "author": "Levi Olson <me@leviolson.com>",
+    "license": "UNLICENSE"
 }
