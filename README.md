@@ -27,9 +27,8 @@ _This file is intended to help you remember the thing you made way back then..._
 
 ## Pull from Digital Ocean
 
-1. SSH into server `ssh root@45.55.44.195`
-2. Enter correct dir `cd /home/forge/leviolson-website`
+1. SSH into server `ssh root@206.189.236.142`
+2. Enter correct dir `cd /opt/apps/leviolson.com`
 3. Pull in changes `git pull && npm i`
 4. Restart the service `pm2 restart LeviOlson.com`
 5. Verify it restarted correctly `pm2 logs LeviOlson.com`
-
