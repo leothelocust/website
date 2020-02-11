@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
     })
 })
 
+// This is really really inefficient... this should be cached and built during a build.
 app.get('/posts', (req, res) => {
     const postDir = __dirname + '/posts'
     let files = fs.readdirSync(postDir, 'utf8')
