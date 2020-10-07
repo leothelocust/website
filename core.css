@@ -201,6 +201,14 @@ pre code {
 pre>code {
     color: #333;
 }
+pre.prettyprint {
+    border-radius: 4px;
+}
+code.prettyprint {
+    background: #CCC;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
 
 .mute {
   color: #999;
