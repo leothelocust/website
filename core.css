@@ -181,16 +181,25 @@ article li {
   align-items: baseline;
 }
 
-pre {
-  padding: 20px 10px;
-}
-
 code {
   color: lightcoral;
 }
 
 pre>code {
   color: #ddd;
+}
+
+pre {
+   padding: 20px 10px !important;
+   background: #CCC;
+}
+
+pre code {
+   background: #CCC;
+}
+
+pre>code {
+    color: #333;
 }
 
 .mute {
