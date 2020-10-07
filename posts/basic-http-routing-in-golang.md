@@ -18,21 +18,23 @@ The accompanying repo for the code produced in this article is located [on githu
 
 Here is our basic folder structure for this basic http routing example:
 
-        basic-http-routing-in-golang/
-            main.go
+<pre class="prettyprint"><code>    basic-http-routing-in-golang/
+        main.go
+</pre></code>
 
 As a starting point our `main.go` file looks like this:
 
-        package main
+<pre class="prettyprint"><code class="language-go">    package main
 
-        import (
-            "fmt"
-            _ "net/http"
-        )
+    import (
+        "fmt"
+        _ "net/http"
+    )
 
-        func main() {
-            fmt.Println("Hello HTTP")
-        }
+    func main() {
+        fmt.Println("Hello HTTP")
+    }
+</pre></code>
 
 ### Step 2 ###
 
@@ -40,13 +42,15 @@ Now starting at a very basic level, we can leverage the [`http.HandleFunc`](http
 
 It is very simple to use and its signature is easy to understand.
 
-        func HandleFunc(pattern string, handler func(ResponseWriter, *Request))
+<pre class="prettyprint"><code class="language-go">    func HandleFunc(pattern string, handler func(ResponseWriter, *Request))
+</pre></code>
 
-Which basically means, `http.HandleFunc("/url", routingFunction)` where `routingFunction` looks like this:
+Which basically means, <code class="prettyprint">http.HandleFunc("/url", routingFunction)</code> where `routingFunction` looks like this:
 
-        func routingFunction(w http.ResponseWriter, req *http.Request) {
-            fmt.Fprint(w, "Hello HTTP")
-        }
+<pre class="prettyprint"><code class="language-go">    func routingFunction(w http.ResponseWriter, req *http.Request) {
+        fmt.Fprint(w, "Hello HTTP")
+    }
+</pre></code>
 
 With `fmt.Fprint()` we can pass an `http.ResponseWriter` and a message to display.  Our browser will now look like this when we visit the `/url` endpoint.
 
@@ -54,22 +58,23 @@ With `fmt.Fprint()` we can pass an `http.ResponseWriter` and a message to displa
 
 Here is what `main.go` looks like at this point:
 
-        package main
+<pre class="prettyprint"><code class="language-go">    package main
 
-        import (
-            "fmt"
-            "log"
-            "net/http"
-        )
+    import (
+        "fmt"
+        "log"
+        "net/http"
+    )
 
-        func main() {
-            http.HandleFunc("/hello", helloHTTP)
-            log.Fatal(http.ListenAndServe(":8080", nil))
-        }
+    func main() {
+        http.HandleFunc("/hello", helloHTTP)
+        log.Fatal(http.ListenAndServe(":8080", nil))
+    }
 
-        func helloHTTP(w http.ResponseWriter, req *http.Request) {
-            fmt.Fprint(w, "Hello HTTP")
-        }
+    func helloHTTP(w http.ResponseWriter, req *http.Request) {
+        fmt.Fprint(w, "Hello HTTP")
+    }
+</pre></code>
 
 Now we could stop there, as this is a "basic" http routing example, but I think it isn't quite useful as an example yet, until we start to see something slightly more practical.
 
@@ -77,33 +82,35 @@ Now we could stop there, as this is a "basic" http routing example, but I think 
 
 So let's add a `NotFound` page when we don't match a pattern in `HandleFunc`.  It's as simple as:
 
-        func notFound(w http.ResponseWriter, req *http.Request) {
-            http.NotFound(w, req)
-        }
+<pre class="prettyprint"><code class="language-go">    func notFound(w http.ResponseWriter, req *http.Request) {
+        http.NotFound(w, req)
+    }
+</pre></code>
 
 Here is what `main.go` looks like after that:
 
-        package main
+<pre class="prettyprint"><code class="language-go">    package main
 
-        import (
-            "fmt"
-            "log"
-            "net/http"
-        )
+    import (
+        "fmt"
+        "log"
+        "net/http"
+    )
 
-        func main() {
-            http.HandleFunc("/hello", helloHTTP)
-            http.HandleFunc("/", notFound)
-            log.Fatal(http.ListenAndServe(":8080", nil))
-        }
+    func main() {
+        http.HandleFunc("/hello", helloHTTP)
+        http.HandleFunc("/", notFound)
+        log.Fatal(http.ListenAndServe(":8080", nil))
+    }
 
-        func helloHTTP(w http.ResponseWriter, req *http.Request) {
-            fmt.Fprint(w, "Hello HTTP")
-        }
+    func helloHTTP(w http.ResponseWriter, req *http.Request) {
+        fmt.Fprint(w, "Hello HTTP")
+    }
 
-        func notFound(w http.ResponseWriter, req *http.Request) {
-            http.NotFound(w, req)
-        }
+    func notFound(w http.ResponseWriter, req *http.Request) {
+        http.NotFound(w, req)
+    }
+</pre></code>
 
 This will match `/hello` and use the `HelloHTTP` method to print "Hello HTTP" to the browser.  Any other URLs will get caught by the `/` pattern and be given the `http.NotFound` response to the browser.
 
@@ -115,21 +122,23 @@ We need to give ourselves something more specific than the simple contrived `/he
 
 We'll start by creating a new method for this GET request called `userProfile`:
 
-        func userProfile(w http.ResponseWriter, req *http.Request) {
-            userID := req.URL.Path[len("/user/"):]
-            fmt.Fprintf(w, "User Profile: %q", userID)
-        }
+<pre class="prettyprint"><code class="language-go">    func userProfile(w http.ResponseWriter, req *http.Request) {
+        userID := req.URL.Path[len("/user/"):]
+        fmt.Fprintf(w, "User Profile: %q", userID)
+    }
+</pre></code>
 
 Notice that we get the URL from the `req` variable and we treat the string returned from `req.URL.Path` as a byte slice to get everything after the `/user/` in the string.  **Note: this isn't fool proof, `/user/10ok` would get matched here, and we would be assigning `userID` to `"10ok"`.**
 
 Let's add this new route in our `main` function:
 
-        func main() {
-            http.HandleFunc("/hello", helloHTTP)
-            http.HandleFunc("/user/", userProfile)
-            http.HandleFunc("/", notFound)
-            log.Fatal(http.ListenAndServe(":8080", nil))
-        }
+<pre class="prettyprint"><code class="language-go">    func main() {
+        http.HandleFunc("/hello", helloHTTP)
+        http.HandleFunc("/user/", userProfile)
+        http.HandleFunc("/", notFound)
+        log.Fatal(http.ListenAndServe(":8080", nil))
+    }
+</pre></code>
 
 _Note: that this pattern `/user/` matches the trailing `/` so that a call to `/user` in the browser would return a `404 Not Found`._
 
@@ -137,26 +146,28 @@ _Note: that this pattern `/user/` matches the trailing `/` so that a call to `/u
 
 Ok, so we have introduced some pretty severe holes in the security of our new HTTP router.  As mentioned in a note above, treating the `req.URL.Path` as a byte slice and just taking the last half is a terrible idea.  So let's fix this:
 
-        var validPath = regexp.MustCompile("^/(user)/([0-9]+)$")
+<pre class="prettyprint"><code class="language-go">    var validPath = regexp.MustCompile("^/(user)/([0-9]+)$")
 
-        func getID(w http.ResponseWriter, req *http.Request) (string, error) {
-            m := validPath.FindStringSubmatch(req.URL.Path)
-            if m == nil {
-                http.NotFound(w, req)
-                return "", errors.New("Invalid ID")
-            }
-            return m[2], nil // The ID is the second subexpression.
+    func getID(w http.ResponseWriter, req *http.Request) (string, error) {
+        m := validPath.FindStringSubmatch(req.URL.Path)
+        if m == nil {
+            http.NotFound(w, req)
+            return "", errors.New("Invalid ID")
         }
+        return m[2], nil // The ID is the second subexpression.
+    }
+</pre></code>
 
 Now we can use this method in our code:
 
-        func userProfile(w http.ResponseWriter, req *http.Request) {
-            userID, err := getID(w, req)
-            if err != nil {
-                return
-            }
-            fmt.Fprintf(w, "User Profile: %q", userID)
+<pre class="prettyprint"><code class="language-go">    func userProfile(w http.ResponseWriter, req *http.Request) {
+        userID, err := getID(w, req)
+        if err != nil {
+            return
         }
+        fmt.Fprintf(w, "User Profile: %q", userID)
+    }
+</pre></code>
 
 ## Conclusion ##
 
