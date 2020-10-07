@@ -25,7 +25,7 @@
 </code></pre>
 <p>As a starting point our
     <code>main.go</code> file looks like this:</p>
-<pre><code>    package main
+<pre class="prettyprint"><code class="language-go">    package main
 
     import (
         &quot;fmt&quot;
@@ -42,25 +42,25 @@
         <code>http.HandleFunc</code>
     </a> method.</p>
 <p>It is very simple to use and its signature is easy to understand.</p>
-<pre><code>    func HandleFunc(pattern string, handler func(ResponseWriter, *Request))
+<pre class="prettyprint"><code class="language-go">    func HandleFunc(pattern string, handler func(ResponseWriter, *Request))
 </code></pre>
 <p>Which basically means,
     <code>http.HandleFunc(&quot;/url&quot;, routingFunction)</code> where
     <code>routingFunction</code> looks like this:</p>
-<pre><code>    func routingFunction(w http.ResponseWriter, req *http.Request) {
+<pre class="prettyprint"><code class="language-go">    func routingFunction(w http.ResponseWriter, req *http.Request) {
         fmt.Fprint(w, &quot;Hello HTTP&quot;)
     }
 </code></pre>
 <p>With
-    <code>fmt.Fprint()</code> we can pass an
-    <code>http.ResponseWriter</code> and a message to display. Our browser will now look like this when we visit the
-    <code>/url</code> endpoint.</p>
+    <code class="prettyprint">fmt.Fprint()</code> we can pass an
+    <code class="prettyprint">http.ResponseWriter</code> and a message to display. Our browser will now look like this when we visit the
+    <code class="prettyprint">/url</code> endpoint.</p>
 <p>
     <img src="https://leviolson.com/images/step2-browser-output.png" alt="Browser Output for Step 2 - Hello HTTP">
 </p>
 <p>Here is what
-    <code>main.go</code> looks like at this point:</p>
-<pre><code>    package main
+    <code class="prettyprint">main.go</code> looks like at this point:</p>
+<pre class="prettyprint"><code class="language-go">    package main
 
     import (
         &quot;fmt&quot;
@@ -83,13 +83,13 @@
 <p>So let's add a
     <code>NotFound</code> page when we don't match a pattern in
     <code>HandleFunc</code>. It's as simple as:</p>
-<pre><code>    func notFound(w http.ResponseWriter, req *http.Request) {
+<pre class="prettyprint"><code class="language-go">    func notFound(w http.ResponseWriter, req *http.Request) {
         http.NotFound(w, req)
     }
 </code></pre>
 <p>Here is what
     <code>main.go</code> looks like after that:</p>
-<pre><code>    package main
+<pre class="prettyprint"><code class="language-go">    package main
 
     import (
         &quot;fmt&quot;
@@ -124,7 +124,7 @@
     <code>:id</code> is an identifier used to get the user profile from our persistance layer (i.e. our database).</p>
 <p>We'll start by creating a new method for this GET request called
     <code>userProfile</code>:</p>
-<pre><code>    func userProfile(w http.ResponseWriter, req *http.Request) {
+<pre class="prettyprint"><code class="language-go">    func userProfile(w http.ResponseWriter, req *http.Request) {
         userID := req.URL.Path[len(&quot;/user/&quot;):]
         fmt.Fprintf(w, &quot;User Profile: %q&quot;, userID)
     }
@@ -140,7 +140,7 @@
 </p>
 <p>Let's add this new route in our
     <code>main</code> function:</p>
-<pre><code>    func main() {
+<pre class="prettyprint"><code class="language-go">    func main() {
         http.HandleFunc(&quot;/hello&quot;, helloHTTP)
         http.HandleFunc(&quot;/user/&quot;, userProfile)
         http.HandleFunc(&quot;/&quot;, notFound)
@@ -158,7 +158,7 @@
 <p>Ok, so we have introduced some pretty severe holes in the security of our new HTTP router. As mentioned in a note above,
     treating the
     <code>req.URL.Path</code> as a byte slice and just taking the last half is a terrible idea. So let's fix this:</p>
-<pre><code>    var validPath = regexp.MustCompile(&quot;^/(user)/([0-9]+)$&quot;)
+<pre class="prettyprint"><code class="language-go">    var validPath = regexp.MustCompile(&quot;^/(user)/([0-9]+)$&quot;)
 
     func getID(w http.ResponseWriter, req *http.Request) (string, error) {
         m := validPath.FindStringSubmatch(req.URL.Path)
@@ -170,7 +170,7 @@
     }
 </code></pre>
 <p>Now we can use this method in our code:</p>
-<pre><code>    func userProfile(w http.ResponseWriter, req *http.Request) {
+<pre class="prettyprint"><code class="language-go">    func userProfile(w http.ResponseWriter, req *http.Request) {
         userID, err := getID(w, req)
         if err != nil {
             return
