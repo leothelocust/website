@@ -18,7 +18,7 @@ The accompanying repo for the code produced in this article is located [on githu
 
 Here is our basic folder structure for this basic http routing example:
 
-<pre class="prettyprint"><code>    basic-http-routing-in-golang/
+<pre><code>    basic-http-routing-in-golang/
         main.go
 </code></pre>
 
