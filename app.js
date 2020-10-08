@@ -38,8 +38,9 @@ app.get('/posts', (req, res) => {
         }
     }
     data.posts.sort(function (a, b) {
-        var keyA = new Date(a.created_at),
-            keyB = new Date(b.created_at)
+        console.log(new Date(a.created_at_short), new Date(b.created_at_short));
+        var keyA = new Date(a.created_at_short),
+            keyB = new Date(b.created_at_short)
         // Compare the 2 dates
         if (keyA < keyB) return 1
         if (keyA > keyB) return -1
