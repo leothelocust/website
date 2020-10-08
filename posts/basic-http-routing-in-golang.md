@@ -20,11 +20,11 @@ Here is our basic folder structure for this basic http routing example:
 
 <pre class="prettyprint"><code>    basic-http-routing-in-golang/
         main.go
-</pre></code>
+</code></pre>
 
 As a starting point our `main.go` file looks like this:
 
-<pre class="prettyprint"><code class="language-go">    package main
+<pre class="prettyprint"><code>    package main
 
     import (
         "fmt"
@@ -34,7 +34,7 @@ As a starting point our `main.go` file looks like this:
     func main() {
         fmt.Println("Hello HTTP")
     }
-</pre></code>
+</code></pre>
 
 ### Step 2 ###
 
@@ -43,14 +43,14 @@ Now starting at a very basic level, we can leverage the [`http.HandleFunc`](http
 It is very simple to use and its signature is easy to understand.
 
 <pre class="prettyprint"><code class="language-go">    func HandleFunc(pattern string, handler func(ResponseWriter, *Request))
-</pre></code>
+</code></pre>
 
 Which basically means, <code class="prettyprint">http.HandleFunc("/url", routingFunction)</code> where `routingFunction` looks like this:
 
 <pre class="prettyprint"><code class="language-go">    func routingFunction(w http.ResponseWriter, req *http.Request) {
         fmt.Fprint(w, "Hello HTTP")
     }
-</pre></code>
+</code></pre>
 
 With `fmt.Fprint()` we can pass an `http.ResponseWriter` and a message to display.  Our browser will now look like this when we visit the `/url` endpoint.
 
@@ -74,7 +74,7 @@ Here is what `main.go` looks like at this point:
     func helloHTTP(w http.ResponseWriter, req *http.Request) {
         fmt.Fprint(w, "Hello HTTP")
     }
-</pre></code>
+</code></pre>
 
 Now we could stop there, as this is a "basic" http routing example, but I think it isn't quite useful as an example yet, until we start to see something slightly more practical.
 
@@ -85,7 +85,7 @@ So let's add a `NotFound` page when we don't match a pattern in `HandleFunc`.  I
 <pre class="prettyprint"><code class="language-go">    func notFound(w http.ResponseWriter, req *http.Request) {
         http.NotFound(w, req)
     }
-</pre></code>
+</code></pre>
 
 Here is what `main.go` looks like after that:
 
@@ -110,7 +110,7 @@ Here is what `main.go` looks like after that:
     func notFound(w http.ResponseWriter, req *http.Request) {
         http.NotFound(w, req)
     }
-</pre></code>
+</code></pre>
 
 This will match `/hello` and use the `HelloHTTP` method to print "Hello HTTP" to the browser.  Any other URLs will get caught by the `/` pattern and be given the `http.NotFound` response to the browser.
 
@@ -126,7 +126,7 @@ We'll start by creating a new method for this GET request called `userProfile`:
         userID := req.URL.Path[len("/user/"):]
         fmt.Fprintf(w, "User Profile: %q", userID)
     }
-</pre></code>
+</code></pre>
 
 Notice that we get the URL from the `req` variable and we treat the string returned from `req.URL.Path` as a byte slice to get everything after the `/user/` in the string.  **Note: this isn't fool proof, `/user/10ok` would get matched here, and we would be assigning `userID` to `"10ok"`.**
 
@@ -138,7 +138,7 @@ Let's add this new route in our `main` function:
         http.HandleFunc("/", notFound)
         log.Fatal(http.ListenAndServe(":8080", nil))
     }
-</pre></code>
+</code></pre>
 
 _Note: that this pattern `/user/` matches the trailing `/` so that a call to `/user` in the browser would return a `404 Not Found`._
 
@@ -156,7 +156,7 @@ Ok, so we have introduced some pretty severe holes in the security of our new HT
         }
         return m[2], nil // The ID is the second subexpression.
     }
-</pre></code>
+</code></pre>
 
 Now we can use this method in our code:
 
@@ -167,7 +167,7 @@ Now we can use this method in our code:
         }
         fmt.Fprintf(w, "User Profile: %q", userID)
     }
-</pre></code>
+</code></pre>
 
 ## Conclusion ##
 

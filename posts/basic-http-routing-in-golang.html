@@ -1,170 +1,117 @@
-<h1 id="basic-http-routing-in-golang">Basic HTTP Routing in Golang</h1>
-<p>Golang is incredibly powerful. Its standard library has so much to offer, but I think other languages have encouraged the
-    use of external libraries for even the most basic tasks. For example, with JavaScript, most inexperienced developers
-    seem to use jQuery to do simple tasks like selecting an element and replacing its contents. When you and I both know
-    jQuery is way overkill for such a task.
-    <a href="https://leviolson.com/posts/vanilla-js-basics">See my article on Vanilla JS basics</a>.</p>
-<p>I believe that in order to be considered an expert in a language, you must at least be able to demonstrate using the core
-    language to achieve your goal. In our current case, HTTP routing. Now to be clear, I don't think you need to write everything
-    from scratch all the time, but you should have a firm grasp on what is available by the core language, and when you are
-    better suited to use an external library. If you are looking for more advanced HTTP routing, then I would suggest using
-    something like
-    <a href="https://github.com/gin-gonic/gin">gin</a>.</p>
+<h1 id="basichttproutingingolang">Basic HTTP Routing in Golang</h1>
+<p>Golang is incredibly powerful.  Its standard library has so much to offer, but I think other languages have encouraged the use of external libraries for even the most basic tasks.  For example, with JavaScript, most inexperienced developers seem to use jQuery to do simple tasks like selecting an element and replacing its contents. When you and I both know jQuery is way overkill for such a task.  <a href="https://leviolson.com/posts/vanilla-js-basics">See my article on Vanilla JS basics</a>.</p>
+<p>I believe that in order to be considered an expert in a language, you must at least be able to demonstrate using the core language to achieve your goal.  In our current case, HTTP routing.  Now to be clear, I don't think you need to write everything from scratch all the time, but you should have a firm grasp on what is available by the core language, and when you are better suited to use an external library.  If you are looking for more advanced HTTP routing, then I would suggest using something like <a href="https://github.com/gin-gonic/gin">gin</a>.</p>
 <p>Enough ranting, let's get to it.</p>
 <h2 id="assumptions">Assumptions</h2>
-<p>I assume you have basic knowledge of the Go language at this point, so if not, it might be worth searching for some entry
-    level basics first. See
-    <a href="https://tour.golang.org">A Tour of Go</a>.</p>
-<h2 id="lets-begin">Let's begin</h2>
-<p>The accompanying repo for the code produced in this article is located
-    <a href="https://github.com/leothelocust/basic-http-routing-in-golang">on github</a>.</p>
-<h3 id="step-1">Step 1</h3>
+<p>I assume you have basic knowledge of the Go language at this point, so if not, it might be worth searching for some entry level basics first.  See <a href="https://tour.golang.org">A Tour of Go</a>.</p>
+<h2 id="letsbegin">Let's begin</h2>
+<p>The accompanying repo for the code produced in this article is located <a href="https://github.com/leothelocust/basic-http-routing-in-golang">on github</a>.</p>
+<h3 id="step1">Step 1</h3>
 <p>Here is our basic folder structure for this basic http routing example:</p>
-<pre><code>    basic-http-routing-in-golang/
+<pre class="prettyprint"><code>    basic-http-routing-in-golang/
         main.go
 </code></pre>
-<p>As a starting point our
-    <code>main.go</code> file looks like this:</p>
-<pre class="prettyprint"><code class="language-go">    package main
+<p>As a starting point our <code>main.go</code> file looks like this:</p>
+<pre class="prettyprint"><code>    package main
 
     import (
-        &quot;fmt&quot;
-        _ &quot;net/http&quot;
+        "fmt"
+        _ "net/http"
     )
 
     func main() {
-        fmt.Println(&quot;Hello HTTP&quot;)
+        fmt.Println("Hello HTTP")
     }
 </code></pre>
-<h3 id="step-2">Step 2</h3>
-<p>Now starting at a very basic level, we can leverage the
-    <a href="https://golang.org/pkg/net/http/#HandleFunc">
-        <code>http.HandleFunc</code>
-    </a> method.</p>
+<h3 id="step2">Step 2</h3>
+<p>Now starting at a very basic level, we can leverage the <a href="https://golang.org/pkg/net/http/#HandleFunc"><code>http.HandleFunc</code></a> method.</p>
 <p>It is very simple to use and its signature is easy to understand.</p>
 <pre class="prettyprint"><code class="language-go">    func HandleFunc(pattern string, handler func(ResponseWriter, *Request))
 </code></pre>
-<p>Which basically means,
-    <code>http.HandleFunc(&quot;/url&quot;, routingFunction)</code> where
-    <code>routingFunction</code> looks like this:</p>
+<p>Which basically means, <code class="prettyprint">http.HandleFunc("/url", routingFunction)</code> where <code>routingFunction</code> looks like this:</p>
 <pre class="prettyprint"><code class="language-go">    func routingFunction(w http.ResponseWriter, req *http.Request) {
-        fmt.Fprint(w, &quot;Hello HTTP&quot;)
+        fmt.Fprint(w, "Hello HTTP")
     }
 </code></pre>
-<p>With
-    <code class="prettyprint">fmt.Fprint()</code> we can pass an
-    <code class="prettyprint">http.ResponseWriter</code> and a message to display. Our browser will now look like this when we visit the
-    <code class="prettyprint">/url</code> endpoint.</p>
-<p>
-    <img src="https://leviolson.com/images/step2-browser-output.png" alt="Browser Output for Step 2 - Hello HTTP">
-</p>
-<p>Here is what
-    <code class="prettyprint">main.go</code> looks like at this point:</p>
+<p>With <code>fmt.Fprint()</code> we can pass an <code>http.ResponseWriter</code> and a message to display.  Our browser will now look like this when we visit the <code>/url</code> endpoint.</p>
+<p><img src="https://leviolson.com/images/step2-browser-output.png" alt="Browser Output for Step 2 - Hello HTTP" /></p>
+<p>Here is what <code>main.go</code> looks like at this point:</p>
 <pre class="prettyprint"><code class="language-go">    package main
 
     import (
-        &quot;fmt&quot;
-        &quot;log&quot;
-        &quot;net/http&quot;
+        "fmt"
+        "log"
+        "net/http"
     )
 
     func main() {
-        http.HandleFunc(&quot;/hello&quot;, helloHTTP)
-        log.Fatal(http.ListenAndServe(&quot;:8080&quot;, nil))
+        http.HandleFunc("/hello", helloHTTP)
+        log.Fatal(http.ListenAndServe(":8080", nil))
     }
 
     func helloHTTP(w http.ResponseWriter, req *http.Request) {
-        fmt.Fprint(w, &quot;Hello HTTP&quot;)
+        fmt.Fprint(w, "Hello HTTP")
     }
 </code></pre>
-<p>Now we could stop there, as this is a &quot;basic&quot; http routing example, but I think it isn't quite useful as an example
-    yet, until we start to see something slightly more practical.</p>
-<h3 id="step-3">Step 3</h3>
-<p>So let's add a
-    <code>NotFound</code> page when we don't match a pattern in
-    <code>HandleFunc</code>. It's as simple as:</p>
+<p>Now we could stop there, as this is a "basic" http routing example, but I think it isn't quite useful as an example yet, until we start to see something slightly more practical.</p>
+<h3 id="step3">Step 3</h3>
+<p>So let's add a <code>NotFound</code> page when we don't match a pattern in <code>HandleFunc</code>.  It's as simple as:</p>
 <pre class="prettyprint"><code class="language-go">    func notFound(w http.ResponseWriter, req *http.Request) {
         http.NotFound(w, req)
     }
 </code></pre>
-<p>Here is what
-    <code>main.go</code> looks like after that:</p>
+<p>Here is what <code>main.go</code> looks like after that:</p>
 <pre class="prettyprint"><code class="language-go">    package main
 
     import (
-        &quot;fmt&quot;
-        &quot;log&quot;
-        &quot;net/http&quot;
+        "fmt"
+        "log"
+        "net/http"
     )
 
     func main() {
-        http.HandleFunc(&quot;/hello&quot;, helloHTTP)
-        http.HandleFunc(&quot;/&quot;, notFound)
-        log.Fatal(http.ListenAndServe(&quot;:8080&quot;, nil))
+        http.HandleFunc("/hello", helloHTTP)
+        http.HandleFunc("/", notFound)
+        log.Fatal(http.ListenAndServe(":8080", nil))
     }
 
     func helloHTTP(w http.ResponseWriter, req *http.Request) {
-        fmt.Fprint(w, &quot;Hello HTTP&quot;)
+        fmt.Fprint(w, "Hello HTTP")
     }
 
     func notFound(w http.ResponseWriter, req *http.Request) {
         http.NotFound(w, req)
     }
 </code></pre>
-<p>This will match
-    <code>/hello</code> and use the
-    <code>HelloHTTP</code> method to print &quot;Hello HTTP&quot; to the browser. Any other URLs will get caught by the
-    <code>/</code> pattern and be given the
-    <code>http.NotFound</code> response to the browser.</p>
+<p>This will match <code>/hello</code> and use the <code>HelloHTTP</code> method to print "Hello HTTP" to the browser.  Any other URLs will get caught by the <code>/</code> pattern and be given the <code>http.NotFound</code> response to the browser.</p>
 <p>So that works, but I think we can go further.</p>
-<h3 id="step-4">Step 4</h3>
-<p>We need to give ourselves something more specific than the simple contrived
-    <code>/hello</code> endpoint above. So let's assume we are needing to get a user profile. We will use the url
-    <code>/user/:id</code> where
-    <code>:id</code> is an identifier used to get the user profile from our persistance layer (i.e. our database).</p>
-<p>We'll start by creating a new method for this GET request called
-    <code>userProfile</code>:</p>
+<h3 id="step4">Step 4</h3>
+<p>We need to give ourselves something more specific than the simple contrived <code>/hello</code> endpoint above.  So let's assume we are needing to get a user profile.  We will use the url <code>/user/:id</code> where <code>:id</code> is an identifier used to get the user profile from our persistance layer (i.e. our database).</p>
+<p>We'll start by creating a new method for this GET request called <code>userProfile</code>:</p>
 <pre class="prettyprint"><code class="language-go">    func userProfile(w http.ResponseWriter, req *http.Request) {
-        userID := req.URL.Path[len(&quot;/user/&quot;):]
-        fmt.Fprintf(w, &quot;User Profile: %q&quot;, userID)
+        userID := req.URL.Path[len("/user/"):]
+        fmt.Fprintf(w, "User Profile: %q", userID)
     }
 </code></pre>
-<p>Notice that we get the URL from the
-    <code>req</code> variable and we treat the string returned from
-    <code>req.URL.Path</code> as a byte slice to get everything after the
-    <code>/user/</code> in the string.
-    <strong>Note: this isn't fool proof,
-        <code>/user/10ok</code> would get matched here, and we would be assigning
-        <code>userID</code> to
-        <code>&quot;10ok&quot;</code>.</strong>
-</p>
-<p>Let's add this new route in our
-    <code>main</code> function:</p>
+<p>Notice that we get the URL from the <code>req</code> variable and we treat the string returned from <code>req.URL.Path</code> as a byte slice to get everything after the <code>/user/</code> in the string.  <strong>Note: this isn't fool proof, <code>/user/10ok</code> would get matched here, and we would be assigning <code>userID</code> to <code>"10ok"</code>.</strong></p>
+<p>Let's add this new route in our <code>main</code> function:</p>
 <pre class="prettyprint"><code class="language-go">    func main() {
-        http.HandleFunc(&quot;/hello&quot;, helloHTTP)
-        http.HandleFunc(&quot;/user/&quot;, userProfile)
-        http.HandleFunc(&quot;/&quot;, notFound)
-        log.Fatal(http.ListenAndServe(&quot;:8080&quot;, nil))
+        http.HandleFunc("/hello", helloHTTP)
+        http.HandleFunc("/user/", userProfile)
+        http.HandleFunc("/", notFound)
+        log.Fatal(http.ListenAndServe(":8080", nil))
     }
 </code></pre>
-<p>
-    <em>Note: that this pattern
-        <code>/user/</code> matches the trailing
-        <code>/</code> so that a call to
-        <code>/user</code> in the browser would return a
-        <code>404 Not Found</code>.</em>
-</p>
-<h3 id="step-5">Step 5</h3>
-<p>Ok, so we have introduced some pretty severe holes in the security of our new HTTP router. As mentioned in a note above,
-    treating the
-    <code>req.URL.Path</code> as a byte slice and just taking the last half is a terrible idea. So let's fix this:</p>
-<pre class="prettyprint"><code class="language-go">    var validPath = regexp.MustCompile(&quot;^/(user)/([0-9]+)$&quot;)
+<p><em>Note: that this pattern <code>/user/</code> matches the trailing <code>/</code> so that a call to <code>/user</code> in the browser would return a <code>404 Not Found</code>.</em></p>
+<h3 id="step5">Step 5</h3>
+<p>Ok, so we have introduced some pretty severe holes in the security of our new HTTP router.  As mentioned in a note above, treating the <code>req.URL.Path</code> as a byte slice and just taking the last half is a terrible idea.  So let's fix this:</p>
+<pre class="prettyprint"><code class="language-go">    var validPath = regexp.MustCompile("^/(user)/([0-9]+)$")
 
     func getID(w http.ResponseWriter, req *http.Request) (string, error) {
         m := validPath.FindStringSubmatch(req.URL.Path)
         if m == nil {
             http.NotFound(w, req)
-            return &quot;&quot;, errors.New(&quot;Invalid ID&quot;)
+            return "", errors.New("Invalid ID")
         }
         return m[2], nil // The ID is the second subexpression.
     }
@@ -175,11 +122,8 @@
         if err != nil {
             return
         }
-        fmt.Fprintf(w, &quot;User Profile: %q&quot;, userID)
+        fmt.Fprintf(w, "User Profile: %q", userID)
     }
 </code></pre>
 <h2 id="conclusion">Conclusion</h2>
-<p>For now, I'm calling this &quot;Basic HTTP Routing in Golang&quot; article finished. But I do plan to add more to it as time
-    allows. Additionally, I'd like to create a more advanced article that discusses the ability to respond to not only GET
-    requests, but also POST, PUT, and DELETE HTTP methods. Look for an &quot;Advanced HTTP routing in Golang&quot; article
-    in the future. Thanks for reading this far. I wish you well in your Go endeavors.</p>
+<p>For now, I'm calling this "Basic HTTP Routing in Golang" article finished.  But I do plan to add more to it as time allows.  Additionally, I'd like to create a more advanced article that discusses the ability to respond to not only GET requests, but also POST, PUT, and DELETE HTTP methods.  Look for an "Advanced HTTP routing in Golang" article in the future.  Thanks for reading this far.  I wish you well in your Go endeavors.</p>
