@@ -132,6 +132,13 @@ main {
 
 div.meta {
   padding-right: 10px;
+  width: 100px;
+}
+
+header.list-item-header {
+  overflow: hidden;
+  white-space: nowrap;
+  width: calc(100% - 100px);
 }
 
 .list-item-header h3,
