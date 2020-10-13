@@ -127,6 +127,7 @@ nav ul li a:hover {
 
 main {
   align-self: left;
+  width: 100%;
 }
 
 div.meta {
