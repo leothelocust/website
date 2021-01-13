@@ -94,7 +94,7 @@ app.get('/posts/:post', (req, res) => {
 })
 
 app.get('/bnp/changelog', (req, res) => {
-    res.sendFile(__dirname + 'posts/bnp-changelog.html')
+    res.sendFile(__dirname + '/posts/bnp-changelog.html')
 })
 
 const port = 3000
