@@ -7,6 +7,7 @@ const app = express()
 
 
 app.use(express.static('public'))
+app.use(express.static('fonts'))
 
 app.set('view engine', 'ejs')
 
@@ -90,6 +91,10 @@ app.get('/posts/:post', (req, res) => {
         return res.redirect('/404')
     }
     return res.render('pages/post', postData)
+})
+
+app.get('/bnp/changelog', (req, res) => {
+    res.sendFile(__dirname + 'posts/bnp-changelog.html')
 })
 
 const port = 3000
