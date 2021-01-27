@@ -34,7 +34,7 @@ app.get('/posts', (req, res) => {
             if (postData && postData.active === 'posts') {
                 data.posts.push(postData)
             } else {
-                console.log(files[i], 'does not have a corresponding "html" file')
+                console.log(files[i], 'does not have a corresponding "html" file or is not active')
             }
         }
     }
