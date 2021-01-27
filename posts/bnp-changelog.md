@@ -12,7 +12,7 @@
     ![Version 1.0.0 Screenshot](/images/v1.0.0-FullScreenshot.png)
 </a>
 
-<a id="improved-search" />
+<a id="improved-search"></a>
 ### Improved Search
 
 Advanced search capability has been added in this release which improves on the previous search by adding a negation search (i.e. "-carts" which would remove requests containing "carts" in the results).
@@ -34,7 +34,7 @@ And you can search for:
 
 Which would return any requests containing **EITHER** `products` **OR** `services`.
 
-<a id="json-editor-built-in" />
+<a id="json-editor-built-in"></a>
 ### JSON Editor BUILT IN
 
 Using the Open Source [JSON Editor](https://github.com/josdejong/jsoneditor), you can now easily search and view JSON data just as you can on the official [jsoneditoronline.org](https://jsoneditoronline.org) website.
@@ -43,7 +43,7 @@ Using the Open Source [JSON Editor](https://github.com/josdejong/jsoneditor), yo
     ![JSON Editor Screenshot](/images/v1.0.0-JSONEditor.png)
 </a>
 
-<a id="vertical-chrome-panel" />
+<a id="vertical-chrome-panel"></a>
 ### Vertical Chrome Panel
 
 Better Network Panel now supports a vertical layout using responsive CSS.  Panel resizing will be released soon.
@@ -52,7 +52,7 @@ Better Network Panel now supports a vertical layout using responsive CSS.  Panel
     ![Vertical Panel Screenshot](/images/v1.0.0-VerticalPanel.png)
 </a>
 
-<a id="download-json" />
+<a id="download-json"></a>
 ### Download JSON
 
 Download the current panel as a JSON doc.
