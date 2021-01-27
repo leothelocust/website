@@ -1,20 +1,28 @@
-SHELL := /bin/bash
-FILE  := tmp.txt
-CAT   := bat
+SHELL=/bin/bash
+COMMAND_COLOR = \033[36m
+SELECT_COLOR  = \033[34m
+DESC_COLOR    = \033[32m
+CLEAR_COLOR   = \033[0m
 
-# ifeq (, $(shell which bat))
-# 	$(error "No bat in $(PATH), consider installing it")
-# 	CAT = cat
-# endif
+.PHONY: help
+help: ## prints this message ## 
+	@echo ""; \
+	echo "Usage: make <command>"; \
+	echo ""; \
+	echo "where <command> is one of the following:"; \
+	echo ""; \
+	grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+	perl -nle '/(.*?): ## (.*?) ## (.*$$)/; if ($$3 eq "") { printf ( "$(COMMAND_COLOR)%-20s$(DESC_COLOR)%s$(CLEAR_COLOR)\n\n", $$1, $$2) } else { printf ( "$(COMMAND_COLOR)%-20s$(DESC_COLOR)%s$(CLEAR_COLOR)\n%-20s%s\n\n", $$1, $$2, " ", $$3) }';
 
-
-.PHONY : compile run 
-
-compile :
-	@ls -1 posts/ | sed -e "s/\..*$$//" | uniq | grep -v 'example'; \
-	read -p "Which post? " post; \
-	./node_modules/showdown/bin/showdown.js makehtml -i posts/$$post.md -o posts/$$post.html
-
-run :
+.PHONY: compile
+compile: ## convert md files to html ## (uses "showdown.js" in node_modules)
+	@echo ""; \
+	echo "Select Post to Compile:"; \
+	echo -e "$(SELECT_COLOR)"; \
+	./select.sh
+	
+.PHONY: run
+run: ## npm run startdev ## 
 	@echo "-> Running"
 	@npm run startdev
+

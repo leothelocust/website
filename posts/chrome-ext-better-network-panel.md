@@ -1,4 +1,4 @@
-# Better Network Panel - a Chrome extension #
+# Better Network Panel - a Chrome extension
 
 > "As a Salesforce and Vlocity developer, I'm constantly looking for ways to improve my workflow, speed up my debugging, and find answers fast."
 
@@ -18,18 +18,15 @@ And all of the above is done several times a day.
 
 I present to you a [Better Network Panel](https://chrome.google.com/webstore/detail/better-network-panel/kknnkgpbclaljhfcknhbebhppmkmoaml).  A Chrome extension that adds a new panel, and offers great features like:
 
-* **Full Search** - Entire request is searchable (i.e. headers, postbody, etc...), not just URI
-* **JSON Parsing** - Even nested members that contain stringified JSON are parsed
+* **Full Search** - Entire request is searchable (i.e. headers, request body, etc...), not just URI
+* **JSON Parsing** - Even nested members that contain stringified JSON are parsed to 3 levels deep
 * **JSON Search** - Incremental searching is available directly in the Preview pane
-* **Import HAR** - Import your own HAR file and use this tool for debugging
-* **Download HAR** - Export a request as a HAR file and use an external tool for further debugging
 * **Regex Search** - Powerfull regex searches can be performed on the Preview pane
 * More to come
 
 ## Open source baby
 
 View it on [GitHub](https://github.com/leothelocust/better-network-chrome-panel)
-
 
 ## Special Thanks
 

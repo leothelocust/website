@@ -31,7 +31,7 @@ app.get('/posts', (req, res) => {
     for (let i = 0; i < files.length; i++) {
         if (path.extname(files[i]) === '.json') {
             let postData = getData(files[i])
-            if (postData) {
+            if (postData && postData.active === 'posts') {
                 data.posts.push(postData)
             } else {
                 console.log(files[i], 'does not have a corresponding "html" file')
@@ -94,7 +94,14 @@ app.get('/posts/:post', (req, res) => {
 })
 
 app.get('/bnp/changelog', (req, res) => {
-    res.sendFile(__dirname + '/posts/bnp-changelog.html')
+    let postData
+    try {
+        postData = JSON.parse(fs.readFileSync('./posts/bnp-changelog.json', 'utf8'))
+        postData.content = fs.readFileSync('./posts/' + postData.content_file, 'utf8')
+    } catch (e) {
+        return res.redirect('/404')
+    }
+    return res.render('pages/post', postData)
 })
 
 const port = 3000
