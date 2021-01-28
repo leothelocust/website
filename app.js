@@ -6,7 +6,7 @@ const fs = require('fs')
 const path = require('path')
 const app = express()
 
-let posts = null
+let posts = []
 
 app.use(cors())
 app.use(express.static('public'))
@@ -23,14 +23,15 @@ app.get('/', (req, res) => {
 
 // This is really really inefficient... this should be cached and built during a build.
 app.get('/posts', (req, res) => {
-    const postDir = __dirname + '/posts'
-    let files = fs.readdirSync(postDir, 'utf8')
     let data = {
         title: "Posts - Levi Olson",
         active: "posts",
         posts: posts
     }
-    if (!data.posts) {
+    if (posts.length === 0) {
+        const postDir = __dirname + '/posts'
+        let files = fs.readdirSync(postDir, 'utf8')
+        
         for (let i = 0; i < files.length; i++) {
             if (path.extname(files[i]) === '.json') {
                 let postData = getData(files[i])
