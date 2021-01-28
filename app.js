@@ -6,6 +6,8 @@ const fs = require('fs')
 const path = require('path')
 const app = express()
 
+let posts = null
+
 app.use(cors())
 app.use(express.static('public'))
 
@@ -26,28 +28,29 @@ app.get('/posts', (req, res) => {
     let data = {
         title: "Posts - Levi Olson",
         active: "posts",
-        posts: []
+        posts: posts
     }
-    for (let i = 0; i < files.length; i++) {
-        if (path.extname(files[i]) === '.json') {
-            let postData = getData(files[i])
-            if (postData && postData.active === 'posts') {
-                data.posts.push(postData)
-            } else {
-                console.log(files[i], 'does not have a corresponding "html" file or is not active')
+    if (!data.posts) {
+        for (let i = 0; i < files.length; i++) {
+            if (path.extname(files[i]) === '.json') {
+                let postData = getData(files[i])
+                if (postData && postData.active === 'posts') {
+                    data.posts.push(postData)
+                } else {
+                    console.log(files[i], 'does not have a corresponding "html" file or is not active')
+                }
             }
         }
+        data.posts.sort(function (a, b) {
+            console.log(new Date(a.created_at_short), new Date(b.created_at_short));
+            var keyA = new Date(a.created_at_short),
+                keyB = new Date(b.created_at_short)
+            // Compare the 2 dates
+            if (keyA < keyB) return 1
+            if (keyA > keyB) return -1
+            return 0
+        })
     }
-    data.posts.sort(function (a, b) {
-        console.log(new Date(a.created_at_short), new Date(b.created_at_short));
-        var keyA = new Date(a.created_at_short),
-            keyB = new Date(b.created_at_short)
-        // Compare the 2 dates
-        if (keyA < keyB) return 1
-        if (keyA > keyB) return -1
-        return 0
-    })
-
     res.render('pages/posts', data)
 })
 
