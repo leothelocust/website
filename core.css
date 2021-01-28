@@ -37,6 +37,16 @@ h6 {
   padding: 20px 0 20px 0
 }
 
+h1 {
+  font-size: 1.5rem;
+}
+h2 {
+  font-size: 1.4rem;
+}
+h3 {
+  font-size: 1.1rem;
+}
+
 .entry-content h1 {
   display: none;
 }
