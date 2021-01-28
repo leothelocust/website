@@ -50,6 +50,7 @@ app.get('/posts', (req, res) => {
             if (keyA > keyB) return -1
             return 0
         })
+        posts = data.posts
     }
     res.render('pages/posts', data)
 })
