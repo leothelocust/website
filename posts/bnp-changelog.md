@@ -1,10 +1,42 @@
-# Better Network Panel - Changelog <!-- omit in toc -->
+# Better Network Panel - Changelog
 
-- [Version 1.0.0](#version-100)
-  - [Improved Search](#improved-search)
-  - [JSON Editor BUILT IN](#json-editor-built-in)
-  - [Vertical Chrome Panel](#vertical-chrome-panel)
-  - [Download JSON](#download-json)
+<ul>
+    <li><a href="#version-101">Version 1.0.1</a>
+        <ul>
+            <li><a href="#panel-settings">Panel Settings</a></li>
+        </ul>
+    </li>
+    <li><a href="#version-100">Version 1.0.0</a>
+        <ul>
+            <li><a href="#improved-search">Improved Search</a></li>
+            <li><a href="#json-editor-built-in">JSON Editor BUILT IN</a></li>
+            <li><a href="#vertical-chrome-panel">Vertical Chrome Panel</a></li>
+            <li><a href="#download-json">Download JSON</a></li>
+        </ul>
+    </li>
+</ul>
+
+<a id="version-101"></a>
+
+## Version 1.0.1
+
+<a id="panel-settings"></a>
+
+### Panel Settings
+
+A new panel has been added that contains some configurable items.
+
+<a href="/images/v1.0.1-Panel-Settings.png" data-jbox-image="gallery">
+    ![Version 1.0.1 Panel Settings](/images/v1.0.1-Panel-Settings.png)
+</a>
+
+### Various Bugfixes and Enhancements
+
+* SCSS refactor for better handling of page size changes (i.e. using flexbox)
+* User can enable/disable auto-scrolling of network logs (See [Panel Settings](#panel-settings))
+* Search terms now have better CSS cursor indicators
+
+<a id="version-100"></a>
 
 ## Version 1.0.0
 
@@ -13,6 +45,7 @@
 </a>
 
 <a id="improved-search"></a>
+
 ### Improved Search
 
 Advanced search capability has been added in this release which improves on the previous search by adding a negation search (i.e. "-carts" which would remove requests containing "carts" in the results).
@@ -35,6 +68,7 @@ And you can search for:
 Which would return any requests containing **EITHER** `products` **OR** `services`.
 
 <a id="json-editor-built-in"></a>
+
 ### JSON Editor BUILT IN
 
 Using the Open Source [JSON Editor](https://github.com/josdejong/jsoneditor), you can now easily search and view JSON data just as you can on the official [jsoneditoronline.org](https://jsoneditoronline.org) website.
@@ -44,6 +78,7 @@ Using the Open Source [JSON Editor](https://github.com/josdejong/jsoneditor), yo
 </a>
 
 <a id="vertical-chrome-panel"></a>
+
 ### Vertical Chrome Panel
 
 Better Network Panel now supports a vertical layout using responsive CSS.  Panel resizing will be released soon.
@@ -53,6 +88,7 @@ Better Network Panel now supports a vertical layout using responsive CSS.  Panel
 </a>
 
 <a id="download-json"></a>
+
 ### Download JSON
 
 Download the current panel as a JSON doc.
