@@ -14,6 +14,7 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
+    console.debug('Loading homepage...')
     res.render('pages/index', {
         title: "Levi Olson",
         active: "home",
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 
 // This is really really inefficient... this should be cached and built during a build.
 app.get('/posts', (req, res) => {
+    console.debug('Loading posts...')
     let data = {
         title: "Posts - Levi Olson",
         active: "posts",
@@ -68,6 +70,7 @@ function getData(file) {
 }
 
 app.get('/about', (req, res) => {
+    console.debug('Loading about...')
     res.sendFile(__dirname + '/views/pages/about.html')
 })
 
@@ -76,6 +79,7 @@ app.get('/uncopyright', (req, res) => {
 })
 
 app.get('/404', (req, res) => {
+    console.debug('Loading 404...')
     return res.status(404).render('pages/404', {
         title: "Page Not Found - Levi Olson",
         active: ""
