@@ -109,7 +109,7 @@ app.get('/bnp/changelog', (req, res) => {
     return res.render('pages/post', postData)
 })
 
-const port = 3000
+const port = process.env.PORT
 app.listen(port, () => console.log('Example app listening on port ' + port + '!'))
 
 module.exports = app
